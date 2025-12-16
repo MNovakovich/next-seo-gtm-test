@@ -1,16 +1,16 @@
 ## Todo:
 
 
-[] Page Route Home, about
-[] Pages news, news detail
+[*] Page Route Home, about
+[*] Pages news, news detail
 [] App Layout
 [] UI Token
-[] ShadCN
+[*] ShadCN
 [] GTM dataLayer
 [] Accessebility
 [] SEO
 [] Storybook
 
 
-[] localization next-intl
+[*] localization next-intl
 [] Test playwrite
