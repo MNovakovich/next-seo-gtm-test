@@ -6,7 +6,11 @@
 [] App Layout
 [] UI Token
 [] ShadCN
+[] GTM dataLayer
+[] Accessebility
+[] SEO
 [] Storybook
+
 
 [] localization next-intl
 [] Test playwrite
