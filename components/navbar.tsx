@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/routing";
+import ThemeSwitcher from "./theme-switcher";
 
 export default function Navbar() {
   return (
@@ -17,6 +18,7 @@ export default function Navbar() {
           >
             News
           </Link>
+          <ThemeSwitcher />
         </nav>
       </div>
     </header>
