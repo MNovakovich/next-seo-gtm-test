@@ -1,3 +1,9 @@
 {
-  "Homepage_title": "Welcome to Our Website"
+  "Homepage_title": "Welcome to Our Website",
+  "News": {
+    "meta_title": "News - Stay Updated with the Latest Information",
+    "meta_description": "Read the latest news and updates from our team. Stay informed about recent developments and announcements.",
+    "Latest_News": "Latest News",
+    "Read_More": "Read More"
+  }
 }

@@ -10,7 +10,7 @@
 [] Accessebility
 [] SEO
 [] Storybook
-
+s
 
 [*] localization next-intl
-[] Test playwrite
+[] Test playwrites

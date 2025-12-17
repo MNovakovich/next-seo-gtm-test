@@ -1,25 +1,36 @@
-"use client";
 
-import { useQuery } from "@tanstack/react-query";
-import axios from "redaxios";
-
+import axios from 'redaxios';
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 interface NewsItem {
   id: string;
   title: string;
   description: string;
 }
+type IIndexProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata(props: IIndexProps): Promise<Metadata> {
+  const { locale } = await props.params;
+  const t = await getTranslations({
+    locale,
+    namespace: 'News',
+  });
+
+  return {
+    title: t('meta_title'),
+    description: t('meta_description'),
+  };
+}
 
 const fetchNews = async (): Promise<NewsItem[]> => {
-  const { data } = await axios.get<NewsItem[]>("/api/news");
+  const { data } = await axios.get<NewsItem[]>('http://localhost:3000/api/news');
   return data;
 };
 
-export default function NewsPage() {
-  const { data: news, isLoading, error } = useQuery({
-    queryKey: ["news"],
-    queryFn: fetchNews,
-  });
-
+export default async function NewsPage() {
+  const news = await fetchNews();
   return (
     <div className="flex flex-col gap-8 py-16">
       <h1 className="text-4xl font-bold tracking-tight text-foreground">
@@ -29,7 +40,7 @@ export default function NewsPage() {
         Stay updated with the latest news and announcements.
       </p>
 
-      {isLoading && (
+      {/* {isLoading && (
         <div className="flex items-center justify-center py-12">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-zinc-300 border-t-zinc-900 dark:border-zinc-700 dark:border-t-zinc-100" />
         </div>
@@ -39,7 +50,7 @@ export default function NewsPage() {
         <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-400">
           Failed to load news. Please try again later.
         </div>
-      )}
+      )} */}
 
       {news && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -61,4 +72,3 @@ export default function NewsPage() {
     </div>
   );
 }
-
