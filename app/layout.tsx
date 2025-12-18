@@ -23,6 +23,11 @@ export const metadata: Metadata = {
       url: '/apple-touch-icon.png',
     },
     {
+      rel: 'apple-touch-icon',
+      sizes: '60x60',
+      url: '/favicons/favicon60w.webp',
+    },
+    {
       rel: 'icon',
       type: 'image/png',
       sizes: '32x32',

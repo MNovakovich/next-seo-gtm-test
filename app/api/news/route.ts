@@ -6,7 +6,7 @@ export interface NewsItem {
   description: string;
 }
 
-const news: NewsItem[] = [
+export const news: NewsItem[] = [
   {
     id: "1",
     title: "Next.js 15 Released",

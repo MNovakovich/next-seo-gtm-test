@@ -15,12 +15,12 @@ export const pathnames = {
     fr: "/actualites",
     es: "/noticias",
   },
-  "/news/[slug]": {
-    en: "/news/[slug]",
-    nl: "/nieuws/[slug]",
-    de: "/nachrichten/[slug]",
-    fr: "/actualites/[slug]",
-    es: "/noticias/[slug]",
+  "/news/[id]": {
+    en: "/news/[id]",
+    nl: "/nieuws/[id]",
+    de: "/nachrichten/[id]",
+    fr: "/actualites/[id]",
+    es: "/noticias/[id]",
   },
 };
 
