@@ -2,7 +2,7 @@ import axios from 'redaxios';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LOCALES, pathnames, Link } from '@/i18n/routing';
-
+import { defaultMetadata } from '@/utils/defautlMetadata';
 interface NewsItem {
   id: string;
   title: string;
@@ -13,75 +13,8 @@ type IIndexProps = {
   params: Promise<{ locale: string }>;
 };
 
-// Generate static params for all locales (improves build-time generation)
-export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
-}
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://coinmerce.io';
 
-export async function generateMetadata(props: IIndexProps): Promise<Metadata> {
-  const { locale } = await props.params;
-  const t = await getTranslations({
-    locale,
-    namespace: 'News',
-  });
-
-  const localizedPath = pathnames['/news'][locale as keyof typeof pathnames['/news']] || '/news';
-  const canonicalUrl = `${BASE_URL}/${locale}${localizedPath}`;
-
-  // Generate alternate language links for hreflang
-  const alternateLanguages = LOCALES.reduce((acc, loc) => {
-    const path = pathnames['/news'][loc as keyof typeof pathnames['/news']] || '/news';
-    acc[loc] = `${BASE_URL}/${loc}${path}`;
-    return acc;
-  }, {} as Record<string, string>);
-
-  return {
-    title: t('meta_title'),
-    description: t('meta_description'),
-    keywords:['crypto', 'news', 'market', 'insights', 'analysis', 'bitcoin', 'ethereum', 'altcoins'],
-
-    // Canonical URL to avoid duplicate content
-    alternates: {
-      canonical: canonicalUrl,
-      languages: alternateLanguages,
-    },
-
-    // Open Graph metadata for social sharing
-    openGraph: {
-      title: t('meta_title'),
-      description: t('meta_description'),
-      url: canonicalUrl,
-      siteName: 'Coinmerce',
-      locale: locale,
-      type: 'website',
-      // Add an image for better social sharing:
-      // images: [{ url: `${BASE_URL}/og-news.jpg`, width: 1200, height: 630, alt: t('meta_title') }],
-    },
-
-    // Twitter Card metadata
-    twitter: {
-      card: 'summary_large_image',
-      title: t('meta_title'),
-      description: t('meta_description'),
-      // image: `${BASE_URL}/og-news.jpg`,
-    },
-
-    // Robots directives
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-  };
-}
 
 // export const metadata = {
 //   title: 'Kako investirati u kripto',
