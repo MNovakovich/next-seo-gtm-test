@@ -1,25 +1,26 @@
-import axios from "redaxios";
-import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
-import { LOCALES, pathnames, Link } from "@/i18n/routing";
+import axios from 'redaxios';
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { LOCALES, pathnames, Link } from '@/i18n/routing';
 
 interface NewsItem {
   id: string;
+  slug: string;
   title: string;
   description: string;
 }
 
 type INewsDetailProps = {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://coinmerce.io";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://coinmerce.io';
 
-const fetchNewsById = async (id: string): Promise<NewsItem | null> => {
+const fetchNewsBySlug = async (slug: string): Promise<NewsItem | null> => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-    const { data } = await axios.get<NewsItem>(`${apiUrl}/api/news/${id}`);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    const { data } = await axios.get<NewsItem>(`${apiUrl}/api/news/${slug}`);
     return data;
   } catch {
     return null;
@@ -29,32 +30,30 @@ const fetchNewsById = async (id: string): Promise<NewsItem | null> => {
 export async function generateMetadata(
   props: INewsDetailProps
 ): Promise<Metadata> {
-  const { locale, id } = await props.params;
-  const news = await fetchNewsById(id);
+  const { locale, slug } = await props.params;
+  const news = await fetchNewsBySlug(slug);
 
   if (!news) {
     return {
-      title: "News Not Found",
+      title: 'News Not Found',
     };
   }
 
   const localizedPath =
-    pathnames["/news/[id]"][locale as keyof (typeof pathnames)["/news/[id]"]] ||
-    "/news/[id]";
-  const resolvedPath = localizedPath.replace("[id]", id);
+    pathnames['/news/[slug]'][
+      locale as keyof (typeof pathnames)['/news/[slug]']
+    ] || '/news/[slug]';
+  const resolvedPath = localizedPath.replace('[slug]', slug);
   const canonicalUrl = `${BASE_URL}/${locale}${resolvedPath}`;
 
-  const alternateLanguages = LOCALES.reduce(
-    (acc, loc) => {
-      const path =
-        pathnames["/news/[id]"][
-          loc as keyof (typeof pathnames)["/news/[id]"]
-        ] || "/news/[id]";
-      acc[loc] = `${BASE_URL}/${loc}${path.replace("[id]", id)}`;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+  const alternateLanguages = LOCALES.reduce((acc, loc) => {
+    const path =
+      pathnames['/news/[slug]'][
+        loc as keyof (typeof pathnames)['/news/[slug]']
+      ] || '/news/[slug]';
+    acc[loc] = `${BASE_URL}/${loc}${path.replace('[slug]', slug)}`;
+    return acc;
+  }, {} as Record<string, string>);
 
   return {
     title: news.title,
@@ -69,13 +68,13 @@ export async function generateMetadata(
       title: news.title,
       description: news.description,
       url: canonicalUrl,
-      siteName: "Coinmerce",
+      siteName: 'Coinmerce',
       locale: locale,
-      type: "article",
+      type: 'article',
     },
 
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: news.title,
       description: news.description,
     },
@@ -86,9 +85,9 @@ export async function generateMetadata(
       googleBot: {
         index: true,
         follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
     },
   };
@@ -96,25 +95,25 @@ export async function generateMetadata(
 
 function generateJsonLd(news: NewsItem, locale: string) {
   return {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
     headline: news.title,
     description: news.description,
     inLanguage: locale,
     publisher: {
-      "@type": "Organization",
-      name: "Coinmerce",
+      '@type': 'Organization',
+      name: 'Coinmerce',
     },
   };
 }
 
 export default async function NewsDetailPage(props: INewsDetailProps) {
-  const { locale, id } = await props.params;
+  const { locale, slug } = await props.params;
 
   setRequestLocale(locale);
 
-  const t = await getTranslations({ locale, namespace: "News" });
-  const news = await fetchNewsById(id);
+  const t = await getTranslations({ locale, namespace: 'News' });
+  const news = await fetchNewsBySlug(slug);
 
   if (!news) {
     notFound();
@@ -147,7 +146,7 @@ export default async function NewsDetailPage(props: INewsDetailProps) {
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
-          {t("back_to_news")}
+          {t('back_to_news')}
         </Link>
 
         <article className="max-w-3xl">
@@ -162,4 +161,3 @@ export default async function NewsDetailPage(props: INewsDetailProps) {
     </>
   );
 }
-

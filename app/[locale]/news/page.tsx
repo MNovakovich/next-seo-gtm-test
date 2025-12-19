@@ -1,10 +1,11 @@
 import axios from 'redaxios';
-import type { Metadata } from 'next';
+import type { Metadata, MetadataRoute } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LOCALES, pathnames, Link } from '@/i18n/routing';
 import { defaultMetadata } from '@/utils/defautlMetadata';
 interface NewsItem {
   id: string;
+  slug: string;
   title: string;
   description: string;
 }
@@ -12,8 +13,6 @@ interface NewsItem {
 type IIndexProps = {
   params: Promise<{ locale: string }>;
 };
-
-
 
 
 // export const metadata = {
@@ -105,7 +104,7 @@ export default async function NewsPage(props: IIndexProps) {
             {news.map((item) => (
               <Link
                 key={item.id}
-                href={{ pathname: '/news/[id]', params: { id: item.id } }}
+                href={{ pathname: '/news/[slug]', params: { slug: item.slug } }}
               >
                 <article className="h-full rounded-lg border border-zinc-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
                   <h2 className="mb-2 text-xl font-semibold text-foreground">

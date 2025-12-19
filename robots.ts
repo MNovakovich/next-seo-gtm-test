@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
+   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://coinmerce.io';
   return {
     rules: {
       userAgent: '*',
@@ -22,6 +23,6 @@ export default function robots(): MetadataRoute.Robots {
         '/de/profil/',
       ],
     },
-    sitemap: 'https://coinmerce.io/sitemap.xml',
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

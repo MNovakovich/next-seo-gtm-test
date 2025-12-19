@@ -4,6 +4,7 @@ import { LOCALES, pathnames } from "@/i18n/routing";
 
 interface NewsItem {
   id: string;
+  slug: string;
   title: string;
   description: string;
 }
@@ -48,25 +49,28 @@ export default async function sitemap({
   news.forEach((item) => {
     LOCALES.forEach((locale) => {
       const localizedPath =
-        pathnames["/news/[id]"][
-          locale as keyof (typeof pathnames)["/news/[id]"]
-        ] || "/news/[id]";
-      const resolvedPath = localizedPath.replace("[id]", item.id);
+        pathnames['/news/[slug]'][
+          locale as keyof (typeof pathnames)['/news/[slug]']
+        ] || '/news/[slug]';
+      const resolvedPath = localizedPath.replace('[slug]', item.slug);
 
       // Generate alternate language URLs
       const languages: Record<string, string> = {};
       LOCALES.forEach((altLocale) => {
         const altPath =
-          pathnames["/news/[id]"][
-            altLocale as keyof (typeof pathnames)["/news/[id]"]
-          ] || "/news/[id]";
-        languages[altLocale] = `${BASE_URL}/${altLocale}${altPath.replace("[id]", item.id)}`;
+          pathnames['/news/[slug]'][
+            altLocale as keyof (typeof pathnames)['/news/[slug]']
+          ] || '/news/[slug]';
+        languages[altLocale] = `${BASE_URL}/${altLocale}${altPath.replace(
+          '[slug]',
+          item.slug
+        )}`;
       });
 
       allEntries.push({
         url: `${BASE_URL}/${locale}${resolvedPath}`,
         lastModified: new Date(),
-        changeFrequency: "weekly",
+        changeFrequency: 'weekly',
         priority: 0.8,
         alternates: {
           languages,
