@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { LOCALES, pathnames, Link } from '@/i18n/routing';
+import { JsonLd } from '@/components/json-ld';
 
 interface NewsItem {
   id: string;
@@ -95,15 +96,10 @@ export async function generateMetadata(
 
 function generateJsonLd(news: NewsItem, locale: string) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: news.title,
     description: news.description,
     inLanguage: locale,
-    publisher: {
-      '@type': 'Organization',
-      name: 'Coinmerce',
-    },
   };
 }
 
@@ -120,12 +116,7 @@ export default async function NewsDetailPage(props: INewsDetailProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateJsonLd(news, locale)),
-        }}
-      />
+      <JsonLd data={generateJsonLd(news, locale)} />
 
       <div className="flex flex-col gap-8 py-16">
         <Link
