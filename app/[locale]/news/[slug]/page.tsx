@@ -114,7 +114,6 @@ export default async function NewsDetailPage(props: INewsDetailProps) {
 
   const t = await getTranslations({ locale, namespace: 'News' });
   const news = await fetchNewsBySlug(slug);
-
   if (!news) {
     notFound();
   }
