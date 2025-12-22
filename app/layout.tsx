@@ -71,7 +71,7 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer', ${process.env.NEXT_PUBLIC_GTM_ID});
+              })(window,document,'script','dataLayer','GTM-T89TDCR7');
             `,
           }}
         />
@@ -89,7 +89,7 @@ export default function RootLayout({
         </noscript>
         <Providers>
           <NextIntlClientProvider locale={'en'}>
-            <h1>GTM ID {process.env.NEXT_PUBLIC_GTM_ID}</h1>
+            <h1>Kurton {process.env.NEXT_PUBLIC_GTM_ID}</h1>
             <Navbar />
             {children}
           </NextIntlClientProvider>
