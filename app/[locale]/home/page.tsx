@@ -9,7 +9,12 @@ export default function HomePage() {
       <p className="max-w-md text-center text-lg text-zinc-600 dark:text-zinc-400">
         This is the home page. Start building your amazing application here.
       </p>
-      <Button variant="primary">Get Started</Button>
+      <Button id="get-started-button" variant="primary">
+        Get Started
+      </Button><br />
+      <Button id="trigger-gtm-event" variant="primary">
+        Triger GTM Event
+      </Button>
     </div>
   );
 }
