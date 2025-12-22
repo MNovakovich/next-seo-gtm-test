@@ -89,7 +89,7 @@ export default function RootLayout({
         </noscript>
         <Providers>
           <NextIntlClientProvider locale={'en'}>
-            <h1>Test {process.env.NEXT_PUBLIC_GTM_ID}</h1>
+            <h1>GTM ID {process.env.NEXT_PUBLIC_GTM_ID}</h1>
             <Navbar />
             {children}
           </NextIntlClientProvider>
