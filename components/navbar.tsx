@@ -18,6 +18,12 @@ export default function Navbar() {
           >
             News
           </Link>
+          <Link
+            href="/about-us"
+            className="text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+          >
+            About Us
+          </Link>
           <ThemeSwitcher />
         </nav>
       </div>
