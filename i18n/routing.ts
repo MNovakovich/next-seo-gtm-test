@@ -9,6 +9,7 @@ export const LOCALES = ["en", "nl", "de", "fr", "es"] as const;
 export const pathnames = {
   '/home': '/home',
   '/about-us': '/about-us',
+  '/about-us/thank-you': '/about-us/thank-you',
   '/login': '/login',
   '/signup': '/signup',
   '/wallet': '/wallet',
