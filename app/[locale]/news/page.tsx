@@ -3,6 +3,7 @@ import type { Metadata, MetadataRoute } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LOCALES, pathnames, Link } from '@/i18n/routing';
 import { defaultMetadata } from '@/utils/defautlMetadata';
+import { gtEvent } from '@/lib/gt';
 interface NewsItem {
   id: string;
   slug: string;
@@ -73,6 +74,7 @@ function generateJsonLd(news: NewsItem[], locale: string) {
 }
 
 export default async function NewsPage(props: IIndexProps) {
+ 
   const { locale } = await props.params;
 
   // Enable static rendering for this locale
@@ -91,7 +93,7 @@ export default async function NewsPage(props: IIndexProps) {
         }}
       />
 
-      <div className="flex flex-col gap-8 py-16">
+      <div id="news-page" className="flex flex-col gap-8 py-16">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
           {t('Latest_News')}
         </h1>

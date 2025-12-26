@@ -1,0 +1,127 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2025-01-01 12:00:00",
+  "containerVersion": {
+    "path": "accounts/6329479214/containers/238213867/versions/1",
+    "container": {
+      "path": "accounts/6329479214/containers/238213867",
+      "accountId": "6329479214",
+      "containerId": "238213867",
+      "name": "Marketing Website Container",
+      "publicId": "GTM-T89TDCR7",
+      "usageContext": ["WEB"],
+      "fingerprint": "1766152511024"
+    },
+
+    "variable": [
+      {
+        "variableId": "1",
+        "name": "Page URL",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "component", "value": "false" }
+        ]
+      },
+      {
+        "variableId": "2",
+        "name": "Click Text",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "component", "value": "false" }
+        ]
+      },
+      {
+        "variableId": "3",
+        "name": "GA4 Measurement ID",
+        "type": "c",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "value", "value": "G-XXXXXXX" }
+        ]
+      }
+    ],
+
+    "trigger": [
+      {
+        "triggerId": "1",
+        "name": "All Pages",
+        "type": "PAGEVIEW"
+      },
+      {
+        "triggerId": "2",
+        "name": "CTA Button Click",
+        "type": "CLICK",
+        "filter": [
+          {
+            "type": "CONTAINS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{Click Text}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "Get Started" }
+            ]
+          }
+        ]
+      },
+      {
+        "triggerId": "3",
+        "name": "Form Submission",
+        "type": "FORM_SUBMISSION"
+      }
+    ],
+
+    "tag": [
+      {
+        "tagId": "1",
+        "accountId": "6329479214",
+        "containerId": "238213867",
+        "name": "GA4 - Configuration",
+        "type": "gaawc",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "{{GA4 Measurement ID}}"
+          }
+        ],
+        "firingTriggerId": ["1"]
+      },
+      {
+        "tagId": "2",
+        "name": "GA4 - CTA Click Event",
+        "accountId": "6329479214",
+        "containerId": "238213867",
+        "type": "gaawe",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "eventName", "value": "cta_click" },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "button_text" },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{Click Text}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["2"]
+      },
+      {
+        "tagId": "3",
+        "name": "GA4 - Form Submit Event",
+        "type": "gaawe",
+        "accountId": "6329479214",
+        "containerId": "238213867",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "eventName", "value": "form_submit" }
+        ],
+        "firingTriggerId": ["3"]
+      }
+    ]
+  }
+}

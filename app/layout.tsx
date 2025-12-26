@@ -53,7 +53,8 @@ export const metadata: Metadata = {
   // title: 'Coinmerce: Give your money a future and nothing less',
   // description: 'Buy & sell with easy, over 400+ coins',
 };
-
+const GTM_ID = 'GTM-ML3RNTDS'; // Udemy Course
+// const GTM_ID = 'GTM-T89TDCR7'; // next-app-example
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,7 +72,7 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-T89TDCR7');
+              })(window,document,'script','dataLayer', '${GTM_ID}');
             `,
           }}
         />
@@ -81,7 +82,7 @@ export default function RootLayout({
       >
         <noscript>
           <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { GTMButton } from "@/components/gtm-button";
+import { gtEvent } from "@/lib/gt";
 
 export default function HomePage() {
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8 py-16">
+    <div
+      id="home-page"
+      className="flex flex-col items-center justify-center gap-8 py-16"
+    >
       <h1 className="text-4xl font-bold tracking-tight text-foreground">
         Welcome Home
       </h1>
@@ -14,12 +18,12 @@ export default function HomePage() {
       <GTMButton
         id="get-started-button"
         variant="primary"
-        eventName="hepek_click"
+        eventName="click_start_btn"
       >
         Get Started
       </GTMButton>
       <br />
-      <Button id="trigger-gtm-event" variant="primary" >
+      <Button id="trigger-gtm-event" variant="primary">
         Triger GTM Event
       </Button>
     </div>
